@@ -1,0 +1,35 @@
+struct ListNode* reverseList(struct ListNode* head){
+    struct ListNode* prev =NULL;
+    struct ListNode* curr=head;
+    struct ListNode* next=NULL;
+    while(curr){
+        next= curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=next;
+    }
+    return prev;
+}
+struct ListNode* removeNodes(struct ListNode* head){
+    if (!head)
+        return NULL;
+    head=reverseList(head);
+    struct ListNode* curr = head;
+    struct ListNode* maxNode= head;
+    struct ListNode* prev = head;
+    curr = curr->next;
+    while(curr){
+        if(curr->val<maxNode->val){
+            prev->next=curr->next;
+            curr = curr->next;
+        }
+        else{
+            maxNode=curr;
+            prev=curr;
+            curr= curr->next;
+
+        }
+    }
+    head=reverseList(head);
+    return head;
+}
